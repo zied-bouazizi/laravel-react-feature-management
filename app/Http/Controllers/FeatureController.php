@@ -42,7 +42,9 @@ class FeatureController extends Controller
      */
     public function show(Feature $feature)
     {
-        //
+        return Inertia::render('Feature/Show', [
+            'feature' => new FeatureResource($feature),
+        ]);
     }
 
     /**
