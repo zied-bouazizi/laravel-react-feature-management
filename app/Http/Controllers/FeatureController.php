@@ -76,6 +76,8 @@ class FeatureController extends Controller
      */
     public function destroy(Feature $feature)
     {
-        //
+        $feature->delete();
+
+        return to_route('feature.index')->with('success', 'Feature deleted successfully.');
     }
 }
