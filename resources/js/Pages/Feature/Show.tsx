@@ -1,4 +1,6 @@
+import CommentItem from '@/Components/CommentItem';
 import FeatureUpvoteDownvote from '@/Components/FeatureUpvoteDownvote';
+import NewCommentForm from '@/Components/NewCommentForm';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Feature } from '@/types';
 import { Head } from '@inertiajs/react';
@@ -20,6 +22,10 @@ export default function Show({ feature }: { feature: Feature }) {
                     <div className="flex-1">
                         <h2 className="text-2xl mb-2">{feature.name}</h2>
                         <p>{feature.description}</p>
+                        <NewCommentForm feature={feature} />
+                        {feature.comments.map((comment) => (
+                            <CommentItem key={comment.id} comment={comment} />
+                        ))}
                     </div>
                 </div>
             </div>
