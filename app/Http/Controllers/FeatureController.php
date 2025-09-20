@@ -26,7 +26,7 @@ class FeatureController extends Controller
      */
     public function create()
     {
-        //
+        return Inertia::render('Feature/Create');
     }
 
     /**
@@ -34,7 +34,15 @@ class FeatureController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'string'],
+            'description' => ['nullable', 'string']
+        ]);
+        $data['user_id'] = auth()->id();
+
+        Feature::create($data);
+
+        return to_route('feature.index')->with('success', 'Feature created successfully.');
     }
 
     /**
