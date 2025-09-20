@@ -60,7 +60,9 @@ class FeatureController extends Controller
      */
     public function edit(Feature $feature)
     {
-        //
+        return Inertia::render('Feature/Edit', [
+            'feature' => new FeatureResource($feature),
+        ]);
     }
 
     /**
@@ -68,7 +70,14 @@ class FeatureController extends Controller
      */
     public function update(Request $request, Feature $feature)
     {
-        //
+        $data = $request->validate([
+            'name' => ['required', 'string'],
+            'description' => ['nullable', 'string']
+        ]);
+
+        $feature->update($data);
+
+        return to_route('feature.index')->with('success', 'Feature updated successfully.');
     }
 
     /**

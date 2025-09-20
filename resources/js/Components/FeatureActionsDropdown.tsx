@@ -21,6 +21,11 @@ export default function FeatureActionsDropdown({ feature }: { feature: Feature }
 
             <Dropdown.Content>
                 <Dropdown.Link
+                    href={route('feature.edit', feature.id)}
+                >
+                    Edit Feature
+                </Dropdown.Link>
+                <Dropdown.Link
                     href={route('feature.destroy', feature.id)}
                     method="delete"
                     as="button"
