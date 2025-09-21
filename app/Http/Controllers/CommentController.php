@@ -26,6 +26,10 @@ class CommentController extends Controller
     {
         $featureId = $comment->feature_id;
 
+        if ($comment->user_id !== Auth::id()) {
+            abort(403);
+        }
+
         $comment->delete();
 
         return to_route('feature.show', $featureId);
