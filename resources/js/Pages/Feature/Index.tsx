@@ -4,7 +4,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Feature, PageProps, PaginatedData } from "@/types";
 import { Head, Link } from '@inertiajs/react';
 
-export default function Dashboard({ auth, features }: PageProps<{ features: PaginatedData<Feature> }>) {
+export default function Index({ auth, features }: PageProps<{ features: PaginatedData<Feature> }>) {
     return (
         <AuthenticatedLayout
             header={
