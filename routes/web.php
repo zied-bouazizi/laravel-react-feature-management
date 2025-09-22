@@ -7,11 +7,9 @@ use App\Http\Controllers\FeatureController;
 use App\Http\Controllers\UpvoteController;
 use App\Http\Controllers\CommentController;
 use App\Http\Controllers\UserController;
-use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 
-Route::redirect('/', '/dashboard');
+Route::redirect('/', '/feature');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
@@ -30,16 +28,13 @@ Route::middleware('auth')->group(function () {
 
     Route::middleware([
         'verified',
-        sprintf('role:%s|%s|%s',
+        sprintf(
+            'role:%s|%s|%s',
             RolesEnum::User->value,
             RolesEnum::Commenter->value,
             RolesEnum::Admin->value
         )
     ])->group(function () {
-        Route::get('/dashboard', function () {
-            return Inertia::render('Dashboard');
-        })->name('dashboard');
-
         Route::resource('feature', FeatureController::class)
             ->except(['index', 'show'])
             ->middleware('can:' . PermissionsEnum::ManageFeatures->value);
@@ -62,4 +57,4 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
