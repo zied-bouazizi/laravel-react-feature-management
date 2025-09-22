@@ -9,6 +9,7 @@ use Inertia\Inertia;
 use App\Http\Resources\FeatureResource;
 use App\Http\Resources\FeatureListResource;
 use App\Http\Resources\UserResource;
+use Carbon\CarbonInterface;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -93,7 +94,7 @@ class FeatureController extends Controller
                     return [
                         'id' => $comment->id,
                         'comment' => $comment->comment,
-                        'created_at' => $comment->created_at->format('Y-m-d H:i:s'),
+                        'created_at' => $comment->created_at->toISOString(),
                         'user' => new UserResource($comment->user),
                     ];
                 });

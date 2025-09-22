@@ -57,4 +57,8 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+Route::fallback(function () {
+    abort(404);
+});
+
 require __DIR__ . '/auth.php';

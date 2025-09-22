@@ -1,6 +1,7 @@
 import { can } from "@/helpers";
 import { Comment } from "@/types";
 import { useForm, usePage } from "@inertiajs/react";
+import TimeAgo from "./TimeAgo";
 
 export default function CommentItem({ comment }: { comment: Comment }) {
     const user = usePage().props.auth.user;
@@ -26,7 +27,7 @@ export default function CommentItem({ comment }: { comment: Comment }) {
             <div className="flex-1">
                 <h3 className="font-bold mt-1">
                     {comment.user.name}
-                    <span className="text-gray-500 text-xs ml-4">{comment.created_at}</span>
+                    <TimeAgo timestamp={comment.created_at} className="text-gray-500 text-xs ml-4" />
                 </h3>
                 <div className="italic mt-1">{comment.comment}</div>
             </div>

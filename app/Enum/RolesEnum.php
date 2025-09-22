@@ -2,24 +2,24 @@
 
 namespace App\Enum;
 
-enum RolesEnum : string
+enum RolesEnum: string
 {
     case Admin = 'admin';
     case Commenter = 'commenter';
     case User = 'user';
 
-    public static function labels() : array
+    public static function labels(): array
     {
         return [
             Self::Admin->value => 'Admin',
-            Self::Commenter->value => 'commenter',
+            Self::Commenter->value => 'Commenter',
             Self::User->value => 'User',
         ];
     }
 
     public function label()
     {
-        return match($this) {
+        return match ($this) {
             self::Admin => 'Admin',
             self::User => 'User',
             self::Commenter => 'Commenter',

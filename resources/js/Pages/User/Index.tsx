@@ -2,7 +2,7 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head, Link } from '@inertiajs/react';
 import { User, PageProps } from "@/types";
 
-export default function Index({ users }: PageProps<{ users: User[] }>) {
+export default function Index({ users, roleLabels }: PageProps<{ users: User[], roleLabels: Record<string, string> }>) {
 
     return (
         <AuthenticatedLayout
@@ -47,10 +47,10 @@ export default function Index({ users }: PageProps<{ users: User[] }>) {
                                 {user.created_at}
                             </td>
                             <td className="px-6 py-4">
-                                {user.roles.join(', ')}
+                                {user.roles.map((role: string) => roleLabels[role]).join(', ')}
                             </td>
                             <td className="px-6 py-4">
-                                <Link href={route('user.edit', user.id)} className="text-blue-500">
+                                <Link prefetch href={route('user.edit', user.id)} className="text-blue-500">
                                     Edit
                                 </Link>
                             </td>

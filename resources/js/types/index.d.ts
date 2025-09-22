@@ -42,3 +42,8 @@ export type PageProps<
     };
     ziggy: Config & { location: string };
 };
+
+export interface ShortTimeAgoProps {
+    timestamp: string;
+    className?: string; 
+}

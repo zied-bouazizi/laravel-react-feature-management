@@ -7,8 +7,9 @@ import InputError from "@/Components/InputError";
 import { FormEventHandler } from "react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Radio from "@/Components/Radio";
+import { Transition } from '@headlessui/react';
 
-export default function Show({ roles, user, roleLabels }: {
+export default function Edit({ roles, user, roleLabels }: {
     roles: any, user: User, roleLabels: Record<string, string>
 }) {
     const {
@@ -16,7 +17,8 @@ export default function Show({ roles, user, roleLabels }: {
         setData,
         processing,
         errors,
-        put
+        put,
+        recentlySuccessful,
     } = useForm({
         name: user.name,
         email: user.email,
@@ -45,7 +47,7 @@ export default function Show({ roles, user, roleLabels }: {
                 </h2>
             }
         >
-            <Head title={'Edit User ' + user.name} />
+            <Head title={`Edit User "${user.name}"`} />
 
             <div className="mb-4 overflow-hidden bg-white shadow-sm sm:rounded-lg dark:bg-gray-800">
                 <div className="p-6 text-gray-900 dark:text-gray-100 flex gap-8">
@@ -102,6 +104,18 @@ export default function Show({ roles, user, roleLabels }: {
 
                         <div className="flex items-center gap-4">
                             <PrimaryButton disabled={processing}>Save</PrimaryButton>
+        
+                            <Transition
+                                show={recentlySuccessful}
+                                enter="transition ease-in-out"
+                                enterFrom="opacity-0"
+                                leave="transition ease-in-out"
+                                leaveTo="opacity-0"
+                            >
+                                <p className="text-sm text-gray-600 dark:text-gray-400">
+                                    Saved.
+                                </p>
+                            </Transition>
                         </div>
                     </form>
                 </div>

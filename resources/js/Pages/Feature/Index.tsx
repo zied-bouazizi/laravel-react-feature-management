@@ -22,9 +22,18 @@ export default function Index({ auth, features, page, lastPage }: PageProps<{ fe
             </div>
             }
 
-            {features.map(feature => (
-                <FeatureItem key={feature.id} feature={feature} />
-            ))}
+            {features.length === 0 ? (
+                <div className="flex justify-center py-2">
+                    <p className="text-sm text-gray-500 dark:text-gray-400">
+                        No features created yet
+                    </p>
+                </div>
+            ) : (
+                features.map(feature => (
+                    <FeatureItem key={feature.id} feature={feature} />
+                ))
+            )}
+
 
             {page < lastPage && <WhenVisible
                 always

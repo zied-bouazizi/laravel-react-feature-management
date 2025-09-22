@@ -27,12 +27,12 @@ export default function FeatureActionsDropdown({ feature }: { feature: Feature }
                 </span>
             </Dropdown.Trigger>
 
-            <Dropdown.Content>
-                <Dropdown.Link 
+            <Dropdown.Content width='28'>
+                <Dropdown.Link
                     prefetch
                     href={route('feature.edit', feature.id)}
                 >
-                    Edit Feature
+                    Edit
                 </Dropdown.Link>
                 <Dropdown.Link
                     href={route('feature.destroy', feature.id)}
@@ -40,7 +40,7 @@ export default function FeatureActionsDropdown({ feature }: { feature: Feature }
                     as="button"
                     onBefore={() => confirm("Are you sure you want to delete this feature?")}
                 >
-                    Delete Feature
+                    Delete
                 </Dropdown.Link>
             </Dropdown.Content>
         </Dropdown>

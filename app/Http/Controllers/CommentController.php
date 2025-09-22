@@ -12,7 +12,7 @@ class CommentController extends Controller
     public function store(Request $request, Feature $feature) 
     {
         $data = $request->validate([
-            'comment' => 'required'
+            'comment' => ['required', 'string', 'max:2000']
         ]);
 
         $data['feature_id'] = $feature->id;

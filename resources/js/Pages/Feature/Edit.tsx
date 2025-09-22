@@ -30,7 +30,7 @@ export default function Edit({ feature }: { feature: Feature }) {
                 </h2>
             }
         >
-            <Head title={'Edit Feature ' + feature.name} />
+            <Head title={`Edit Feature "${feature.name}"`} />
 
             <form onSubmit={updateFeature} className="w-full">
                 <div className="mb-8">
@@ -56,13 +56,12 @@ export default function Edit({ feature }: { feature: Feature }) {
                         id="description"
                         rows={6}
                         className="mt-1 block w-full"
-                        value={data.description}
+                        value={data.description || ''}
                         onChange={(e) => setData('description', e.target.value)}
                     />
 
                     <InputError className="mt-2" message={errors.description} />
                 </div>
-
                 <div>
                     <PrimaryButton disabled={processing}>Save</PrimaryButton>
                 </div>

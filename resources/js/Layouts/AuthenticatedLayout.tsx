@@ -32,7 +32,7 @@ export default function Authenticated({
                                 <NavLink
                                     prefetch
                                     href={route('feature.index')}
-                                    active={route().current('feature.index')}
+                                    active={route().current('feature.*')}
                                 >
                                     Features
                                 </NavLink>
@@ -40,7 +40,7 @@ export default function Authenticated({
                                     <NavLink
                                         prefetch
                                         href={route('user.index')}
-                                        active={route().current('user.index')}
+                                        active={route().current('user.*')}
                                     >
                                         Users
                                     </NavLink>
@@ -147,7 +147,7 @@ export default function Authenticated({
                         <ResponsiveNavLink
                             prefetch
                             href={route('feature.index')}
-                            active={route().current('feature.index')}
+                            active={route().current('feature.*')}
                         >
                             Features
                         </ResponsiveNavLink>
@@ -155,7 +155,7 @@ export default function Authenticated({
                             <ResponsiveNavLink
                                 prefetch
                                 href={route('user.index')}
-                                active={route().current('user.index')}
+                                active={route().current('user.*')}
                             >
                                 Users
                             </ResponsiveNavLink>
