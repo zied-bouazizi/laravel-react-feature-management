@@ -4,8 +4,8 @@ namespace Database\Seeders;
 
 use App\Enum\PermissionsEnum;
 use App\Enum\RolesEnum;
-use App\Models\User;   
-use App\Models\Feature;    
+use App\Models\User;
+use App\Models\Feature;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Permission;
@@ -46,7 +46,7 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'User User',
+            'name' => 'Regular User',
             'email' => 'user@example.com',
         ])->assignRole(RolesEnum::User);
 
@@ -55,7 +55,7 @@ class DatabaseSeeder extends Seeder
             'email' => 'commenter@example.com',
         ])->assignRole(RolesEnum::Commenter);
 
-        $userAdmin = User::factory()->create([
+        User::factory()->create([
             'name' => 'Admin User',
             'email' => 'admin@example.com',
         ])->assignRole(RolesEnum::Admin);
