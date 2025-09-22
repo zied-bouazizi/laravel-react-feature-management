@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use Inertia\Inertia;
 use App\Http\Resources\FeatureResource;
 use App\Http\Resources\FeatureListResource;
+use App\Http\Resources\UserResource;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
@@ -85,6 +86,16 @@ class FeatureController extends Controller
 
         return Inertia::render('Feature/Show', [
             'feature' => new FeatureResource($feature),
+            'comments' => Inertia::defer(function() use ($feature) {
+                return $feature->comments->map(function ($comment) {
+                    return [
+                        'id' => $comment->id,
+                        'comment' => $comment->comment,
+                        'created_at' => $comment->created_at->format('Y-m-d H:i:s'),
+                        'user' => new UserResource($comment->user),
+                    ];
+                });
+            })
         ]);
     }
 

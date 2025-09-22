@@ -28,7 +28,8 @@ export default function FeatureActionsDropdown({ feature }: { feature: Feature }
             </Dropdown.Trigger>
 
             <Dropdown.Content>
-                <Dropdown.Link
+                <Dropdown.Link 
+                    prefetch
                     href={route('feature.edit', feature.id)}
                 >
                     Edit Feature
