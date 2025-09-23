@@ -1,66 +1,107 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# Laravel React Feature Management
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+A web application for managing features with roles, permissions, voting and comments built with Laravel, React, Inertia.js and Server-Side Rendering (SSR).
 
-## About Laravel
+## Features
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+1. User registration and authentication
+2. Roles and permissions (Admin, Commenter, User)
+3. Admin can manage features and their own comments, edit users’ role and vote on features
+4. Commenter can manage their own comments and vote on features
+5. User can vote on features
+6. Features CRUD with pagination and users CRUD with sorting, filtering and pagination
+7. Upvote and downvote system for features
+8. Comment system for discussion on features
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Local Setup
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+> [!TIP]
+> Ensure your environment is ready. You will need PHP 8.2, Composer and Node.js installed and the commands `php`, `composer`, `node` and `npm` should be available in your terminal.
 
-## Learning Laravel
+### 1. Clone the repository
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+```
+git clone <repository-url>
+```
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+### 2. Navigate to the project folder
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+```
+cd <project-folder>
+```
 
-## Laravel Sponsors
+### 3. Copy the environment file
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+```
+cp .env.example .env
+```
 
-### Premium Partners
+### 4. Configure environment variables 
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Open `.env` and update the configuration parameters as needed.
 
-## Contributing
+### 5. Install PHP dependencies
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+```
+composer install
+```
 
-## Code of Conduct
+### 6. Generate the application key
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```
+php artisan key:generate 
+``` 
 
-## Security Vulnerabilities
+### 7. Run database migrations and seed dummy data 
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+```
+php artisan migrate --seed
+```
 
-## License
+### 8. Install JavaScript dependencies
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```
+npm install
+```
+
+### 9. Start the full development environment
+
+```
+composer run dev
+```
+
+## SSR Setup 
+
+Server-Side Rendering (SSR) improves initial page load performance and SEO by rendering pages on the server before sending them to the client.
+
+After completing the steps above up to step 8, proceed with the following:
+
+### 1. Build the React frontend assets 
+
+```
+npm run build
+```
+
+### 2. Start the Laravel development server 
+
+```
+php artisan serve
+```
+
+### 3. Start the Inertia SSR server 
+
+Run this command in a separate terminal to enable server-side rendering (SSR) for your React frontend.
+
+```
+php artisan inertia:start-ssr
+```
+
+## Test Accounts
+
+Use these accounts to test the application locally:
+
+| Role           | Email                 | Password | Permissions                                                 |
+|----------------|-----------------------|----------|-------------------------------------------------------------|
+| Admin User     | admin@example.com     | password | Full access to all features, including changing user roles. |
+| Commenter User | commenter@example.com | password | Can create and manage own comments and vote on features.    |
+| Regular User   | user@example.com      | password | Can vote on features with basic application access.         |
