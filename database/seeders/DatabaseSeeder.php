@@ -46,9 +46,9 @@ class DatabaseSeeder extends Seeder
         ]);
 
         User::factory()->create([
-            'name' => 'Regular User',
-            'email' => 'user@example.com',
-        ])->assignRole(RolesEnum::User);
+            'name' => 'Admin User',
+            'email' => 'admin@example.com',
+        ])->assignRole(RolesEnum::Admin);
 
         User::factory()->create([
             'name' => 'Commenter User',
@@ -56,9 +56,9 @@ class DatabaseSeeder extends Seeder
         ])->assignRole(RolesEnum::Commenter);
 
         User::factory()->create([
-            'name' => 'Admin User',
-            'email' => 'admin@example.com',
-        ])->assignRole(RolesEnum::Admin);
+            'name' => 'Regular User',
+            'email' => 'user@example.com',
+        ])->assignRole(RolesEnum::User);
 
         Feature::factory(100)->create();
     }

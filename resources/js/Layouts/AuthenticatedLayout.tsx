@@ -41,7 +41,6 @@ export default function Authenticated({
                                 </NavLink>
                                 {can(user, 'manage_users') &&
                                     <NavLink
-                                        prefetch
                                         href={route('user.index')}
                                         active={route().current('user.*')}
                                     >
@@ -156,7 +155,6 @@ export default function Authenticated({
                         </ResponsiveNavLink>
                         {can(user, 'manage_users') &&
                             <ResponsiveNavLink
-                                prefetch
                                 href={route('user.index')}
                                 active={route().current('user.*')}
                             >
