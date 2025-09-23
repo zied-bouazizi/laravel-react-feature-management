@@ -2,18 +2,40 @@ import { can } from "@/helpers";
 import { Comment } from "@/types";
 import { useForm, usePage } from "@inertiajs/react";
 import TimeAgo from "./TimeAgo";
+import { useState } from "react";
+import TextAreaInput from "./TextAreaInput";
+import PrimaryButton from "./PrimaryButton";
+import SecondaryButton from "./SecondaryButton";
 
 export default function CommentItem({ comment }: { comment: Comment }) {
     const user = usePage().props.auth.user;
+    const [isEditing, setIsEditing] = useState(false);
 
-    const form = useForm();
+    const deleteForm = useForm();
+    const editForm = useForm({
+        comment: comment.comment,
+    });
+    
+    const { processing } = editForm;
+
+    const isInvalid = editForm.data.comment.trim().length === 0 || editForm.data.comment.length > 2000;
+
 
     const deleteComment = () => {
-        form.delete(route('comment.destroy', comment.id), {
+        deleteForm.delete(route('comment.destroy', comment.id), {
             preserveScroll: true,
             preserveState: true
         })
     }
+
+    const updateComment = () => {
+        editForm.put(route('comment.update', comment.id), {
+            preserveScroll: true,
+            preserveState: true,
+            onSuccess: () => setIsEditing(false),
+        });
+    };
+
 
     return (
         <div className="flex gap-4 mb-3">
@@ -28,11 +50,69 @@ export default function CommentItem({ comment }: { comment: Comment }) {
                 <h3 className="font-bold mt-1">
                     {comment.user.name}
                     <TimeAgo timestamp={comment.created_at} className="text-gray-500 text-xs ml-4" />
+                    {comment.updated_at !== comment.created_at && (
+                        <span className="text-gray-500 text-xs ml-1">(Edited)</span>
+                    )}
                 </h3>
-                <div className="italic mt-1">{comment.comment}</div>
+                {!isEditing ? (
+                    <div className="italic mt-1">
+                        {comment.comment}
+                    </div>
+                ) : (
+                    <div className="mt-2">
+                        <TextAreaInput
+                            rows={1}
+                            value={editForm.data.comment}
+                             onChange={(e) =>
+                                editForm.setData('comment', e.target.value)
+                            }
+                            className="w-full rounded-md border-gray-300 text-sm"
+                        ></TextAreaInput>
+
+                        <p
+                            className={`text-xs mt-1 ${
+                                editForm.data.comment.length > 2000
+                                    ? 'text-red-600'
+                                    : 'text-gray-500'
+                            }`}
+                        >
+                            {editForm.data.comment.length}/2000
+                        </p>
+
+                        <div className="flex gap-2 mt-2">
+                            <PrimaryButton 
+                                size="sm"
+                                onClick={updateComment}
+                                disabled={processing || isInvalid}
+                            >
+                                Save
+                            </PrimaryButton>
+                            <SecondaryButton
+                                size="sm"
+                                onClick={() => {
+                                    setIsEditing(false);
+                                    editForm.reset();
+                                }}
+                            >
+                                Cancel
+                            </SecondaryButton>
+                        </div>
+                    </div>
+                )}
             </div>
             {can(user, 'manage_comments') && comment.user.id == user.id &&
-                <div className="flex items-center py-2 px-6">
+                <div className="flex items-start gap-3 py-2 px-6">
+                    <button onClick={() => setIsEditing(true)} disabled={processing}>
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
+                            stroke="currentColor" className="size-4">
+                            <path strokeLinecap="round" strokeLinejoin="round"
+                                d="M16.862 4.487a2.25 2.25 0 0 1 3.182 3.182L7.5 19.213
+                                a1.5 1.5 0 0 1-.684.39l-3 1
+                                1-3a1.5 1.5 0 0 1 .39-.684
+                                L16.862 4.487Z" />
+                        </svg>
+                    </button>
+
                     <button onClick={deleteComment}>
                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth="1.5"
                             stroke="currentColor" className="size-4">

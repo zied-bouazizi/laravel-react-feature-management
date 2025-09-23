@@ -95,6 +95,7 @@ class FeatureController extends Controller
                         'id' => $comment->id,
                         'comment' => $comment->comment,
                         'created_at' => $comment->created_at->toISOString(),
+                        'updated_at' => $comment->updated_at->toISOString(),
                         'user' => new UserResource($comment->user),
                     ];
                 });

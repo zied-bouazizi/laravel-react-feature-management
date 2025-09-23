@@ -9,7 +9,10 @@ export default function ShortTimeAgo({ timestamp, className }: ShortTimeAgoProps
         const now = dayjs();
         const created = dayjs(timestamp);
 
-        const diffSeconds = now.diff(created, 'second');
+        let diffSeconds = now.diff(created, 'second');
+        diffSeconds = Math.max(0, diffSeconds);
+
+        if (diffSeconds < 1) return 'now';
         if (diffSeconds < 60) return `${diffSeconds}s`;
         
         const diffMinutes = now.diff(created, 'minute');

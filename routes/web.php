@@ -50,7 +50,10 @@ Route::middleware('auth')->group(function () {
 
         Route::post('/feature/{feature}/comments', [CommentController::class, 'store'])
             ->name('comment.store')
-            ->middleware('can:' . PermissionsEnum::ManageComments->value);;
+            ->middleware('can:' . PermissionsEnum::ManageComments->value);
+        Route::put('/comment/{comment}', [CommentController::class, 'update'])
+            ->name('comment.update')
+            ->middleware('can:' . PermissionsEnum::ManageComments->value);
         Route::delete('/comment/{comment}', [CommentController::class, 'destroy'])
             ->name('comment.destroy')
             ->middleware('can:' . PermissionsEnum::ManageComments->value);

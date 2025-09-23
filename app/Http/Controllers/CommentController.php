@@ -22,6 +22,23 @@ class CommentController extends Controller
         return to_route('feature.show', $feature);
     }
 
+    public function update(Request $request, Comment $comment)
+    {
+        $featureId = $comment->feature_id;
+
+        $data = $request->validate([
+            'comment' => ['required', 'string', 'max:2000'],
+        ]);
+
+        if ($comment->user_id !== Auth::id()) {
+            abort(403);
+        }
+
+        $comment->update($data);
+
+        return to_route('feature.show', $featureId);
+    }
+
     public function destroy(Comment $comment) 
     {
         $featureId = $comment->feature_id;
