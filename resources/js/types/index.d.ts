@@ -52,3 +52,12 @@ export interface AlertProps {
     message?: string;
     trigger?: number;
 }
+
+export interface ConfirmDeleteProps {
+  show?: boolean;
+  onClose?: () => void;
+  onDelete?: () => void;
+  processing?: boolean;
+  itemName?: string;
+  maxWidth?: 'sm' | 'md' | 'lg' | 'xl' | '2xl';
+}
