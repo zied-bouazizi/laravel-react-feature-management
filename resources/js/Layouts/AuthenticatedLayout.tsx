@@ -1,15 +1,18 @@
+import Alert from '@/Components/Alert';
 import ApplicationLogo from '@/Components/ApplicationLogo';
 import Dropdown from '@/Components/Dropdown';
 import NavLink from '@/Components/NavLink';
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { can } from '@/helpers';
+import { AlertProps } from '@/types';
 import { Link, usePage } from '@inertiajs/react';
 import { PropsWithChildren, ReactNode, useState } from 'react';
 
 export default function Authenticated({
     header,
     children,
-}: PropsWithChildren<{ header?: ReactNode }>) {
+    trigger
+}: PropsWithChildren<{ header?: ReactNode; trigger?: AlertProps['trigger'] }>) {
     const user = usePage().props.auth.user;
     const success: any = usePage().props.success;
 
@@ -198,9 +201,7 @@ export default function Authenticated({
 
             <div className="py-12">
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
-                    {success && <div className="bg-emerald-500 py-4 px-6 rounded mb-8">
-                        {success}
-                    </div>}
+                    {success && <Alert message={success} trigger={trigger} />}
                     <main>{children}</main>
                 </div>
             </div>

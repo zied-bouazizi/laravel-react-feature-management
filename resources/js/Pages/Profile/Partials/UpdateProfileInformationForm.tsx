@@ -9,10 +9,13 @@ import { FormEventHandler, useEffect } from 'react';
 export default function UpdateProfileInformation({
     mustVerifyEmail,
     status,
+    flash,
     className = '',
 }: {
     mustVerifyEmail: boolean;
     status?: string;
+    profileInformationSuccess?: string;
+    flash: () => void;
     className?: string;
 }) {
     const user = usePage().props.auth.user;
@@ -26,7 +29,11 @@ export default function UpdateProfileInformation({
     const submit: FormEventHandler = (e) => {
         e.preventDefault();
 
-        patch(route('profile.update'));
+        patch(route('profile.update'), {
+            onSuccess: () => {
+                flash();
+            }
+        });
     };
 
     useEffect(() => {

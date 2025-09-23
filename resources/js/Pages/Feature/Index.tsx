@@ -1,10 +1,13 @@
 import FeatureItem from '@/Components/FeatureItem';
 import { can } from '@/helpers';
+import useFlashAlert from '@/Hooks/useFlashAlert';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Feature, PageProps } from "@/types";
 import { Head, Link, WhenVisible } from '@inertiajs/react';
 
-export default function Index({ auth, features, page, lastPage }: PageProps<{ features: Feature[], page: number, lastPage: number }>) {
+export default function Index({ auth, features, page, lastPage }: PageProps<{ features: Feature[], page: number, lastPage: number }>) {  
+    const { trigger, flash } = useFlashAlert();
+
     return (
         <AuthenticatedLayout
             header={
@@ -12,6 +15,7 @@ export default function Index({ auth, features, page, lastPage }: PageProps<{ fe
                     Features
                 </h2>
             }
+            trigger={trigger}
         >
             <Head title="Features" />
 
@@ -30,7 +34,7 @@ export default function Index({ auth, features, page, lastPage }: PageProps<{ fe
                 </div>
             ) : (
                 features.map(feature => (
-                    <FeatureItem key={feature.id} feature={feature} />
+                    <FeatureItem key={feature.id} feature={feature} flash={flash} />
                 ))
             )}
 

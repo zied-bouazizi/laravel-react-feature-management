@@ -3,7 +3,7 @@ import { Feature } from '@/types';
 import { can } from "@/helpers";
 import { usePage } from "@inertiajs/react";
 
-export default function FeatureActionsDropdown({ feature }: { feature: Feature }) {
+export default function FeatureActionsDropdown({ feature, flash }: { feature: Feature; flash: () => void }) {
     const user = usePage().props.auth.user;
 
     if (!can(user, 'manage_features')) {
@@ -39,6 +39,7 @@ export default function FeatureActionsDropdown({ feature }: { feature: Feature }
                     method="delete"
                     as="button"
                     onBefore={() => confirm("Are you sure you want to delete this feature?")}
+                    onSuccess={() => flash()}
                 >
                     Delete
                 </Dropdown.Link>

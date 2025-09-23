@@ -47,3 +47,8 @@ export interface ShortTimeAgoProps {
     timestamp: string;
     className?: string; 
 }
+
+export interface AlertProps {
+    message?: string;
+    trigger?: number;
+}

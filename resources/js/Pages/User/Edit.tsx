@@ -8,10 +8,13 @@ import { FormEventHandler } from "react";
 import PrimaryButton from "@/Components/PrimaryButton";
 import Radio from "@/Components/Radio";
 import { Transition } from '@headlessui/react';
+import useFlashAlert from '@/Hooks/useFlashAlert';
 
 export default function Edit({ roles, user, roleLabels }: {
     roles: any, user: User, roleLabels: Record<string, string>
 }) {
+    const { trigger, flash } = useFlashAlert();
+
     const {
         data,
         setData,
@@ -29,7 +32,10 @@ export default function Edit({ roles, user, roleLabels }: {
         ev.preventDefault();
 
         put(route('user.update', user.id), {
-            preserveScroll: true
+            preserveScroll: true,
+            onSuccess: () => {
+                flash();
+            }
         })
     }
 
@@ -46,6 +52,7 @@ export default function Edit({ roles, user, roleLabels }: {
                     Edit User <b>"{user.name}"</b>
                 </h2>
             }
+            trigger={trigger}
         >
             <Head title={`Edit User "${user.name}"`} />
 

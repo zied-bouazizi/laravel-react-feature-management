@@ -7,9 +7,12 @@ import { useForm } from '@inertiajs/react';
 import { FormEventHandler, useRef } from 'react';
 
 export default function UpdatePasswordForm({
+    flash,
     className = '',
 }: {
     className?: string;
+    passwordSuccess?: string;
+    flash: () => void;
 }) {
     const passwordInput = useRef<HTMLInputElement>(null);
     const currentPasswordInput = useRef<HTMLInputElement>(null);
@@ -32,8 +35,10 @@ export default function UpdatePasswordForm({
         e.preventDefault();
 
         put(route('password.update'), {
-            preserveScroll: true,
-            onSuccess: () => reset(),
+            onSuccess: () => {
+                reset();
+                flash();
+            },
             onError: (errors) => {
                 if (errors.password) {
                     reset('password', 'password_confirmation');

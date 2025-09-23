@@ -4,7 +4,7 @@ import { useState } from "react";
 import FeatureActionsDropdown from "./FeatureActionsDropdown";
 import FeatureUpvoteDownvote from "./FeatureUpvoteDownvote";
 
-export default function FeatureItem({ feature }: { feature: Feature }) {
+export default function FeatureItem({ feature, flash }: { feature: Feature; flash: () => void }) {
     const [isExpanded, setIsExpanded] = useState(false);
 
     const toggleReadMore = () => {
@@ -36,7 +36,7 @@ export default function FeatureItem({ feature }: { feature: Feature }) {
                     </div>
                 </div>
                 <div>
-                    <FeatureActionsDropdown feature={feature} />
+                    <FeatureActionsDropdown feature={feature} flash={flash} />
                 </div>
             </div>
         </div>
